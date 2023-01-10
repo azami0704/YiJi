@@ -1,7 +1,7 @@
 <div style="width:45%;margin:auto;">
     <fieldset>
         <legend>帳號管理</legend>
-        <form action="./del_acc.php" method="post">
+        <form action="./api/user.php" method="post">
             <table style="width: 100%;padding-inline:10px;">
                 <tr>
                     <td style="width: 45%;background:#ccc;">帳號</td>
@@ -35,7 +35,7 @@
             </table>
         </form>
 
-        <form id="reg">
+        <form id="reg" action="./api/user.php" method="post">
             <table>
                 <tr>
                     <td colspan="2" style="color:red;">*請設定您要註冊的帳號及密碼(最長12個字元)</td>
@@ -84,9 +84,9 @@
     const form = $('#reg')
     form.submit(function(e) {
         e.preventDefault();
-        if (!form[0][1].value || !form[0][2].value || !form[0][3].value || !form[0][4].value) {
+        if (!form[0][0].value || !form[0][1].value || !form[0][2].value || !form[0][3].value) {
             alert('不可空白');
-        } else if (form[0][2].value !== form[0][3].value) {
+        } else if (form[0][1].value !== form[0][2].value) {
             alert('密碼錯誤');
         } else {
             const data = form.serialize();
@@ -98,7 +98,7 @@
                             break;
                         case 'reg_success':
                             alert('註冊成功，歡迎加入');
-                            window.location.href = "?do=login";
+                            window.location.reload();
                             break;
                     }
                 })
