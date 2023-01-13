@@ -36,7 +36,7 @@ include_once "./api/base.php";
 				<a class="blo" href="?do=po">分類網誌</a>
 				<a class="blo" href="?do=news">最新文章管理</a>
 				<a class="blo" href="?do=">講座管理</a>
-				<a class="blo" href="?do=">問卷管理</a>
+				<a class="blo" href="?do=que">問卷管理</a>
 			</div>
 			<div class="hal" id="main">
 				<div>

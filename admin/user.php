@@ -1,7 +1,7 @@
 <div style="width:45%;margin:auto;">
     <fieldset>
         <legend>帳號管理</legend>
-        <form action="./api/user.php" method="post">
+        <form action="./api/del_user.php" method="post">
             <table style="width: 100%;padding-inline:10px;">
                 <tr>
                     <td style="width: 45%;background:#ccc;">帳號</td>
@@ -11,6 +11,7 @@
                 <?php
                 $rows = $User->all();
                 foreach ($rows as $row) {
+                    if($row['acc']!='admin'){
                 ?>
                     <tr>
                         <td>
@@ -24,10 +25,11 @@
                         </td>
                     </tr>
                 <?php
-                }
+                }}
                 ?>
                 <tr>
                     <td colspan="3" class="ct">
+                        <input type="hidden" name="table" value="User">
                         <button class="button" type="submit">確定刪除</button>
                         <button class="button" type="reset">清空選取</button>
                     </td>
@@ -36,6 +38,7 @@
         </form>
 
         <form id="reg" action="./api/user.php" method="post">
+            <h2>新增會員</h2>
             <table>
                 <tr>
                     <td colspan="2" style="color:red;">*請設定您要註冊的帳號及密碼(最長12個字元)</td>
@@ -97,7 +100,7 @@
                             alert('帳號重複');
                             break;
                         case 'reg_success':
-                            alert('註冊成功，歡迎加入');
+                            alert('新增完成');
                             window.location.reload();
                             break;
                     }

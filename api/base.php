@@ -33,11 +33,8 @@ class DB
             if (is_array($args[0])) {
                 $sql .= " WHERE " . join(" AND ", $this->arrToSql($args[0]));
             } else {
-                $sql .= " WHERE `id`='$args[0]'";
+                $sql .= $args[0];
             }
-        }
-        if (isset($args[1])) {
-            $sql .= $args[1];
         }
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -45,7 +42,7 @@ class DB
     {
         if (isset($id[0])) {
             $sql = "UPDATE `$this->table` SET ";
-            $sql .= join(" AND ", $this->arrToSql($data));
+            $sql .= join(" , ", $this->arrToSql($data));
             if (is_array($id[0])) {
                 $sql .= " WHERE " . join(" AND ", $this->arrToSql($id[0]));
             } else {
@@ -128,7 +125,7 @@ $Know = new DB('know');
 $Que = new DB('que');
 $User = new DB('user');
 $Total = new DB('total');
-
+$Log= new DB('log');
 
 if (!isset($_SESSION['visited'])) {
     $_SESSION['visited'] = true;
@@ -139,3 +136,5 @@ if (!isset($_SESSION['visited'])) {
         $Total->save(['total' => $todayTotal['total'] + 1], $todayTotal['id']);
     }
 }
+
+
