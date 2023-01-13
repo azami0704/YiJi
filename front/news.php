@@ -27,7 +27,7 @@
                         </td>
                         <td style="vertical-align: top;">
                         <?php
-                        if($_SESSION['user']){
+                        if(isset($_SESSION['user'])){
                             $logs=$Log->all(['user_id'=>$_SESSION['user']['id'],'news_good'=>1]);
                             $chkArr=[];
                             foreach($logs as $log){
