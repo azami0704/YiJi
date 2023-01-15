@@ -40,6 +40,10 @@
                             ?>
                                 <a href="#" class="good-btn"><?= $good ?></a>
                             <?php
+                            }else{
+                                ?>
+                                <img src="./icon/02B03.jpg" width='20px'>
+                                <?php
                             }
                             ?>
                         </td>
