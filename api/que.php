@@ -4,7 +4,7 @@ include_once "./base.php";
 $table = $_POST['table'];
 $page = strtolower($table);
 
-if(isset($_POST['title'])&&!$_POST['title']){
+if(isset($_POST['title'])&&$_POST['title']){
     $$table->save(['title'=>$_POST['title']]);
 }
 $parent = $$table->max('id',1);

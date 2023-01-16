@@ -7,8 +7,8 @@
             <table style="width: 100%;padding-inline:10px;">
                 <tr>
                     <th style="width: 30%;">標題</th>
-                    <th style="width: 50%;">內容</th>
-                    <th style="width: 20%;">人氣</th>
+                    <th style="width: 40%;">內容</th>
+                    <th style="width: 30%;">人氣</th>
                 </tr>
                 <?php
                 $pageActive = $_GET['page'] ?? 1;
@@ -16,18 +16,18 @@
                 $div = 5;
                 $pages = ceil($all / $div);
                 $pageStart = ($pageActive - 1) * $div;
-                $rows = $$table->all(" WHERE `sh`='1' LIMIT $pageStart,$div");
+                $rows = $$table->all(" WHERE `sh`='1' ORDER BY `good` DESC LIMIT $pageStart,$div");
                 foreach ($rows as $key => $row) {
                     $count = $row['good'];
                 ?>
-                    <tr data-num="<?= $row['id'] ?>">
+                    <tr data-num="<?= $row['id'] ?>" class="text">
                         <td style="width: 200px;background:#ccc;">
                             <?= $row['title'] ?>
                         </td>
-                        <td class="text bigg" style="width:350px;display:inline-block;padding-left:8px;">
+                        <td class="bigg " style="width:350px;display:inline-block;padding-left:8px;">
                             <?= $row['text'] ?>
                         </td>
-                        <td style="vertical-align: top;">
+                        <td style="vertical-align: top;" class="td-good">
                             <span><?= $count ?>個人說</span>
                             <?php
                             if (isset($_SESSION['user'])) {
@@ -36,9 +36,9 @@
                                 foreach ($logs as $log) {
                                     $chkArr[] = $log['news_id'];
                                 }
-                                $good = in_array($row['id'], $chkArr) ? '收回讚' : "<img src='./icon/02B03.jpg' width='20px'>";
+                                $good = in_array($row['id'], $chkArr) ? '收回讚' : "讚";
                             ?>
-                                <a href="#" class="good-btn"><?= $good ?></a>
+                                <a href="#" class="good-btn"><img src='./icon/02B03.jpg' width='20px'> <span><?= $good ?></span></a>
                             <?php
                             }else{
                                 ?>
@@ -70,23 +70,32 @@
                     </td>
                 </tr>
             </table>
-
-    </fieldset>
+        </fieldset>
     </form>
 
     <script>
         $(function() {
-            $('.text').click(function() {
-                $(this).toggleClass('bigg');
+            $('.text').hover(function(e) {
+                if(!$(e.target).hasClass('td-good')){
+                    let title = $(this).children('td').eq(0).text();
+                    let content = $(this).children('td').eq(1).text();
+                    $('#alerr').html(`<h3>${title}</h3><pre>${content}</pre>`);
+                    $('#alerr').css({'top':$(this).offset().top+30,'left':$(this).offset().left+200})
+                    $('#alerr').show();
+                }
+            },function(){
+                $('#alerr').hide();
             })
 
             $('.good-btn').click(function(e) {
                 e.preventDefault();
-                let newsId = $(this).closest('tr').data('num')
+                let newsId = $(this).closest('tr').data('num');
                 $.post('./api/good.php', `user_id=<?= $_SESSION['user']['id'] ?>&news_id=${newsId}`)
                     .done(res => {
-                        $(this).prev().text(`${res.split(' ')[0]}個人說`)
-                        $(this).html(res.split(' ')[1]=='+' ? "<span>收回讚</span>" : `<img src='./icon/02B03.jpg' width='20px'>`);
+                        $(this).prev().text(`${res}個人說`);
+                        let good=$(this).children('span').text()=="讚"? "收回讚" : `讚`;
+                        $(this).children('span').text(good);
+                        location.reload();
                     })
                     .fail(err => {
                         console.log(err);

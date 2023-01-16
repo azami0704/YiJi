@@ -52,7 +52,7 @@ include_once "./api/base.php";
 					}
 					?>
 					</span>
-					<div class="">
+					<div class="container">
 						<?php
 						$do=$_GET['do']??'home';
 						$file = "./front/$do.php";

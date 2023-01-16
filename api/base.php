@@ -9,6 +9,12 @@ class DB
     protected $dns = "mysql:local=localhost;charset=utf8;dbname=db201";
     protected $pdo;
     protected $table;
+    public $type=[
+            1=>"健康新知",
+            2=>"菸害防治",
+            3=>"癌症防治",
+            4=>"慢性病防治"
+            ];
 
     public function __construct($table)
     {

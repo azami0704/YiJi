@@ -320,5 +320,9 @@ cursor:default;
 	border: 1px solid #000;
 	padding: 10px;
 }
-
+.bar {
+	display: inline-block;
+	background-color: #ccc;
+	height: 1rem;
+}
 
