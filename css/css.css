@@ -29,10 +29,6 @@ a:hover
 {
 	text-decoration:underline;
 }
-#mm
-{
-	/* min-height:520px; */
-}
 #all
 {
 	padding: 2px;
@@ -325,4 +321,6 @@ cursor:default;
 	background-color: #ccc;
 	height: 1rem;
 }
-
+.page-active {
+	font-size: 24px;
+}

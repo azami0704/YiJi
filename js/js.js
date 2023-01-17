@@ -19,3 +19,13 @@ function good(id)
 		}
 	})
 }
+
+function getPage(page,num) {
+	    $.get(`./api/pop.php?do=${page}&page=${num}`)
+    .done(res=>{
+        $(".container").html(res)
+    })
+    .fail(err=>{
+        console.log(err);
+    })
+}
